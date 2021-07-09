@@ -48,8 +48,8 @@ B00000001, B10000000,
 B00000000, B00000000
 };
 
-const char* ssid = "SLT";
-const char* password = "RT995997";
+const char* ssid = "xxxxxx";
+const char* password = "xxxxxxx";
 
 const char* mqtt_server = "broker.hivemq.com";
 
