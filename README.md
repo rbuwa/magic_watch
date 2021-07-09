@@ -1,6 +1,10 @@
-This project is to get information from mqtt broker , i try to creater a watch using magicblock.io platform and pudhbullet , i am able to create date , time ,phone notification counter and illuminance meter in this version 1 project
+This project is to get information from mqtt broker , i try to creater a watch using magicblock.io platform and pushbullet , i am able to create date , time ,phone notification counter and illuminance meter in this version 1 project
 
-Date and time fetch by the ntpclient server
+Date and time is fetched by the ntpclient server
+
+illuminasity is fetched throught the magicblock.io app
+
+Notifications are fetch throught the pushbullet app
 
 You have to create pushbullet account to setup the notification refer this video:https://youtu.be/SQSesbcSWr4
 
