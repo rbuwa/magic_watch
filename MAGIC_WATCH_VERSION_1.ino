@@ -1,6 +1,6 @@
 /*designed by R.I BUWANEKA
  MAGIC_WATCH VERSION_1
- BASED ON MAGICBLOCK.IO
+ BASED ON MAGICBLOCK.IO and pushbillet
  BOARD ESP 32
 */
 #include <ArduinoJson.h>
@@ -14,7 +14,7 @@
 
 
 #include <WiFiUdp.h>
-
+///////mail/////////////////////
 static const unsigned char PROGMEM  mail[] =
 { 
 B01111111, B11111110, 
@@ -26,7 +26,7 @@ B10000000, B00000001,
 B10000000, B00000001, 
 B01111111, B11111110
 };
-
+//////////////lux//////////////////
 static const unsigned char PROGMEM  LUX[] =
 { 
 B00000000, B00000000, 
@@ -47,10 +47,11 @@ B00000001, B10000100,
 B00000001, B10000000, 
 B00000000, B00000000
 };
-
+//////////////////////insert_your_home_password_and_ssid////////////////
 const char* ssid = "xxxxxx";
 const char* password = "xxxxxxx";
 
+/////////////////give any free broker to communicate ,use that in also magicblock.io/////////////////////
 const char* mqtt_server = "broker.hivemq.com";
 
 #define NTP_OFFSET  19800 
@@ -59,9 +60,12 @@ const char* mqtt_server = "broker.hivemq.com";
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, NTP_ADDRESS, NTP_OFFSET, NTP_INTERVAL);
+////////////////date//////////////////////////////////
 char daysOfTheWeek[7][12] = {"SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THUESDAY", "FRIDAY", "SATURDAY"};
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+////////////////configuration_for_oled_display///////////////////////////
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64 
 #define OLED_RESET    -1 
@@ -140,7 +144,7 @@ while (WiFi.status() != WL_CONNECTED)
    
    
      Serial.println();
-    StaticJsonDocument <256> doc;
+    StaticJsonDocument <256> doc;////arduinojson/////
     deserializeJson(doc,str);
 
   String note = doc["Message"] ;
@@ -148,13 +152,13 @@ while (WiFi.status() != WL_CONNECTED)
   String  lux = doc["lightSensor"]["illuminance"];
    H =  timeClient.getHours();
    M =  timeClient.getMinutes();  
-  String formattedTime = timeClient.getFormattedTime();
+  //String formattedTime = timeClient.getFormattedTime();
   display.clearDisplay();
  
   display.setTextColor(WHITE);
   display.setTextSize(3);
   display.setCursor(20, 20);
-
+////////////////////////////time////////////////
   if(H < 10){
     String hi = String(M);
     String nH = "0"+hi;
@@ -171,7 +175,7 @@ while (WiFi.status() != WL_CONNECTED)
    }
    else{
   display.print(M);}
-  
+ //////////////////////////////date////////////////////////////// 
   display.setTextSize(1);
   display.setCursor(4,4);
   display.print(daysOfTheWeek[timeClient.getDay()]);
@@ -182,7 +186,7 @@ while (WiFi.status() != WL_CONNECTED)
       n = n + 1 ;
        if (n>10){
          n = 0;}}
-
+//////////////////////motification_counter/////////////////////
   display.setCursor(100, 4);
   display.print("x");
   display.setCursor(110, 4);
@@ -190,7 +194,7 @@ while (WiFi.status() != WL_CONNECTED)
 
  
 
-
+///////////////////////lux_meter////////////////////////////////
   display.drawBitmap(45, 45,  LUX, 16, 16, 1); 
        display.setTextSize(2);
        display.setCursor(65, 45);
@@ -231,6 +235,7 @@ void reconnect() {
 }
 //////////////////////////////////////////////////////////////////////////
 
+////////////////////////////state////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 void state(){
    if (!client.connected()) {
